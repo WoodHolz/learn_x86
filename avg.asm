@@ -1,8 +1,10 @@
 DATA SEGMENT
-    X   DB  ?
+    ;X   DB  ?
     ;Y   DB  ?
-    Z   DB  ?
+    ;Z   DB  ?
 DATA ENDS
+STACK SEGMENT STACK
+STACK ENDS
 CD SEGMENT
     ASSUME CS: CD, DS: DATA
 START:
@@ -12,7 +14,8 @@ START:
 
     MOV AH, 01H ; input the first data
     INT 21H
-    MOV X, AL
+    sub al, 30H
+    MOV BL, AL
 
     MOV DL, 0DH
     MOV AH, 02H
@@ -23,12 +26,14 @@ START:
 
     MOV AH, 01H ; input the second data
     INT 21H
+    sub al, 30h ; 啊啊啊忘了减30h :-( 键盘输入的是ascii码！！！
     ;MOV Y, AL 
 
     XOR AH, AH ; average
-    ADD AL, X
+    ADD AL, BL
+    ;adc AH, 0
     SHR AX, 1
-    MOV Z, AL 
+    MOV BL, AL 
 
     MOV DL, 0DH
     MOV AH, 02H
@@ -37,7 +42,7 @@ START:
     MOV AH, 02H
     INT 21H
 
-    MOV DL, Z
+    MOV DL, BL
     ADD DL, 30H
     MOV AH, 02H
     INT 21H
