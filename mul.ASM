@@ -34,6 +34,7 @@ START:
         ;MOV AX, 0 
         MUL a ; a * b   
         ;MOV BX, AX
+        AAA
         PUSH AX
 
         ; 显示
@@ -42,7 +43,7 @@ START:
         INT 21H
 
         POP AX
-        CMP AX, 9 ; 判断      
+        CMP AX, 10 ; 判断      
         JGE NEXT
         ADD AL, 30H 
         MOV DL, AL
@@ -54,7 +55,7 @@ START:
         NEXT: 
         PUSH AX
         MOV CL, 8
-        RCR AX, CL
+        ROR AX, CL
         AND AX, 0FH
         ADD AL, 30H
         MOV DL, AL
