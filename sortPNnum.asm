@@ -15,13 +15,13 @@ CODE    SEGMENT
         MOV CX, 10
         MOV SI, OFFSET ARR
         LEA DI, ARR_P
-        LEA BX, ARR_N
+        MOV BX, offset ARR_N
 
         LOOP:
-        CMP [SI], 0
+        CMP BYTE PTR [SI], 0
         JNZ POSITIVE
-        MOX AX, [SI]
-        MOV [BX], AX
+        MOV DX, SI
+        MOV DS:[BX], DX
         INC BX
         INC NUM_N
         INC SI
@@ -42,11 +42,28 @@ CODE    SEGMENT
         JMP END_C
         
 
-        END_C:
-        XOR AX, AX
+        END_C: 
+        ;MOV DL, 'num of positive:$'
+        ;MOV AH, 09H
+        ;INT 21H
         MOV DL, NUM_P
+        ADD DL, 30H
         MOV AH, 02H
         INT 21H
 
+        MOV DL, 0DH
+        MOV AH, 02H
+        INT 21H
+        MOV DL, 0AH
+        MOV AH, 02H
+        INT 21H
+        
         MOV DL, NUM_N
-        MOV AH
+        ADD DL, 30H
+        MOV AH, 02H
+        INT 21H
+        
+        MOV AH, 4CH
+        INT 21H
+CODE    ENDS
+        END START
