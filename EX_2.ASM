@@ -3,7 +3,8 @@ DATA    SEGMENT
         INFOR2 DB 0AH, 0DH, "input the second data(<10):$"
         INFOR3 DB 0AH, 0DH, "The result is:$"
 DATA    ENDS
-;stack part?
+stack segment STACK
+stack ends
 DATA   SEGMENT STACK
         ;DW ?
 DATA   ENDS
