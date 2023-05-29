@@ -6,6 +6,8 @@ DATA	SEGMENT
         ARR_N DW 10 DUP(?)
         NUM_N DB 0
 DATA    ENDS
+stack   SEGMENT STACK
+stack   ends
 CODE    SEGMENT
         ASSUME CS: CODE, DS: DATA
         START:
@@ -17,7 +19,7 @@ CODE    SEGMENT
         LEA DI, ARR_P
         MOV BX, offset ARR_N
 
-        LOOP:
+        LOOP_1:
         CMP BYTE PTR [SI], 0
         JNZ POSITIVE
         MOV DX, SI
@@ -27,7 +29,7 @@ CODE    SEGMENT
         INC SI
         DEC CX
         CMP CX, 0
-        JNZ LOOP
+        JNZ LOOP_1
         JMP END_C
 
         POSITIVE:
@@ -38,7 +40,7 @@ CODE    SEGMENT
         INC SI
         DEC CX
         CMP CX, 0 
-        JNZ LOOP
+        JNZ LOOP_1
         JMP END_C
         
 
