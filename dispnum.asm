@@ -1,22 +1,40 @@
-IOYO EQU 00H
-MY8255_A EQU IOYO + 00H
+IOY0 EQU 00H
+MY8255_A EQU IOY0 + 00H
+MY8255_MODE EQU IOY0 + 03H
 DATA SEGMENT
-    ARR DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
+    ARR DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH,
+        DB 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
 DATA ENDS
 CODE SEGMENT
 START:
     MOV AX, DATA
     MOV DS, AX
 
-    MOV AL, 10010000B ; confuse
-    MOV DX,MY8255_MODE
+    ; set the work mode of 8255
+    MOV AL, 10010000B ; confused
+    MOV DX, MY8255_MODE
     OUT DX,AL
 
-    LOOP_1:
-    CALL 
+    LEA BX, ARR
+    MOV CX, 20
+    
+    LOOP_DIS:
+    PUSH CX
+    CALL DELAY
+    POP CX
+    MOV AL, [BX]
+    MOV DX, MY8253_A
+    MOV DX, AL
+    INC BX
+    SUB CX 
+    CMP CX, 0
+    JGE LOOP_DIS
+    JMP ENDG
 
+    ; confused... how to calculate the time  
+    ; when using software timing?
     DELAY:
-    MOV CX, 0FFFFH ; confuse
+    MOV CX, 0FFFFH 
     SUB CX 
     CMP CX, 0
     JGE DELAY
