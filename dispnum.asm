@@ -5,7 +5,11 @@ DATA SEGMENT
     ARR DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH,
         DB 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
 DATA ENDS
+STACK SEGMENT STACK
+    DB 1000 DUP(?)
+STACK ENDS
 CODE SEGMENT
+    ASSUME CS: CODE DS: DATA
 START:
     MOV AX, DATA
     MOV DS, AX
@@ -23,10 +27,10 @@ START:
     CALL DELAY
     POP CX
     MOV AL, [BX]
-    MOV DX, MY8253_A
+    MOV DX, MY8255_A
     MOV DX, AL
     INC BX
-    SUB CX 
+    DEC CX 
     CMP CX, 0
     JGE LOOP_DIS
     JMP ENDG
@@ -35,13 +39,13 @@ START:
     ; when using software timing?
     DELAY:
     MOV CX, 0FFFFH 
-    SUB CX 
+    DEC CX 
     CMP CX, 0
     JGE DELAY
     JMP ENDG
 
     ENDG:
-    MOV CH, 4CH
+    MOV AH, 4CH
     INT 21H
 CODE ENDS
     END START
