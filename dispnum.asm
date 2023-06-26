@@ -39,7 +39,7 @@ START:
     ; when using software timing?
     DELAY:
     PUSH CX
-    MOV CX, 0FFFH 
+    MOV CX, 0FFFFH 
     DEC CX 
     CMP CX, 0
     JGE DELAY
