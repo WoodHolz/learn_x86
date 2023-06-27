@@ -19,14 +19,12 @@ START:
     MOV AL, 10000000B
     MOV DX, MY8255_MODE
     OUT DX, AL
-    ;AND DX, 0
     mov si, 0
     dis:
     MOV BX, OFFSET TAL
     MOV AL, [BX + si]
     mov DX, MY8255_B
     out DX, AL
-    ;INC BX
     INC si
     call DELAY
     cmp si, 10
@@ -35,7 +33,7 @@ START:
     jmp dis
     
     DELAY:
-    MOV CX,30517
+    MOV CX, 30517
     LOOP_d:
     DEC CX 
     CMP CX, 0
