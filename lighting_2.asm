@@ -48,11 +48,10 @@ START:
     jmp show_10
 
     DELAY:
-    MOV CX, 30517
+    MOV CX,26 
     LOOP_d:
-    DEC CX 
-    CMP CX, 0
-    JGE LOOP_d
+    NOP
+    LOOP LOOP_d
     RET
     
 CODE ENDS

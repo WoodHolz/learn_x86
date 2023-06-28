@@ -33,11 +33,13 @@ START:
     jmp dis
     
     DELAY:
-    MOV CX, 30517
+    MOV CX, 65535
+    
     LOOP_d:
-    DEC CX 
-    CMP CX, 0
-    JGE LOOP_d
+    NOP
+    NOP
+    NOP
+    LOOP LOOP_d
     RET
     
 CODE ENDS
