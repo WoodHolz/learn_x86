@@ -14,7 +14,7 @@ START:
     MOV DS, AX
 
     ; set the work mode of 8255
-    MOV AL, 10000000B ; confused
+    MOV AL, 10000000B ; not confused now, just read the book; set the port of 8255
     MOV DX, MY8255_MODE
     OUT DX,AL
 
